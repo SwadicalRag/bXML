@@ -8,7 +8,7 @@ function bXML:parseTag(str,data,tagStack)
     local tagFirstChar = tag:sub(1,1)
 
     if tagFirstChar == "!" then
-        data[tag:sub(2,-1)] = args
+        data._data[tag:sub(2,-1)] = args
         return TAG_INFO
     elseif tagFirstChar == "/" then
         if tagStack[#tagStack].tag == tag:sub(2,-1) then
@@ -19,14 +19,16 @@ function bXML:parseTag(str,data,tagStack)
             error("Tag "..tag.." was closed unexpectedly")
         end
     else
-        local tbl = {}
+        local tbl = {
+            _data = {}
+        }
         tagStack[#tagStack+1] = {
             tag = tag,
             data = tbl
         }
 
-        for key,val in args:gmatch("%w+%s-=%s-[\"'].-[\"']") do
-            tbl[key] = val
+        for key,val in args:gmatch("(%S+)%s*=%s*(%b\"\")") do
+            tbl._data[key] = val:sub(2,-2)
         end
 
         data[tag] = tbl
