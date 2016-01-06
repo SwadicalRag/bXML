@@ -67,7 +67,7 @@ local function ifind(str,match,patterns)
 end
 
 function bXML:parseTagGroup(str,data,tagStack,tagCount)
-    for start,finish,tag in str:ifind("<(.-)>") do
+    for start,finish,tag in ifind(str,"<(.-)>") do
         local target
         if tagStack[#tagStack] then
             target = tagStack[#tagStack].data
