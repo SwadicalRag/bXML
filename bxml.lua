@@ -97,6 +97,4 @@ function bXML:Create(tbl)
     error("Unimplemented")
 end
 
-_G.bXML = bXML
-
 return bXML
