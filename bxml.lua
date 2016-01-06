@@ -56,7 +56,7 @@ function bXML:parseTag(str,data,tagStack,start,finish,all,tagCount)
     end
 end
 
-function string.ifind(str,match,patterns)
+local function ifind(str,match,patterns)
     local lastpos = 1
     return function()
         local args = {str:find(match,lastpos,patterns)}
@@ -96,5 +96,7 @@ end
 function bXML:Create(tbl)
     error("Unimplemented")
 end
+
+_G.bXML = bXML
 
 return bXML
